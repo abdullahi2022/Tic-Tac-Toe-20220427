@@ -118,8 +118,10 @@ void mouseClicked() {
         mode=0;
       }
     }
-    if (turn == 1 || mode == 1)
-  }void gamePlayClick() {
+    if (turn == 1) || mode == 1);
+       }
+}
+void gamePlayClick(){
       score();
       if (mode != 0 && turn == 2) {
         AI();

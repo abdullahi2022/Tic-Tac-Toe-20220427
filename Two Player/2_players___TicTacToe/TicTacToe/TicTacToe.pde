@@ -26,7 +26,7 @@ int turn = 1;
 int mode = 0;
 int light;
 int dark;
-int gamePlayDraw;
+int gamePlayDraw; 
 boolean darkMode = false;
 int r1c1 = 0;
 int r1c2 = 0;
@@ -88,7 +88,6 @@ fill(255,0,0);
   rect(150, 400, 300, 550);
   rect(300, 400, 450, 550);
 
-    gamePlay();
   if (Xscore == 10) {
     Xwin();
   }
@@ -98,40 +97,8 @@ fill(255,0,0);
   quitButtonDraw();
 }
 
-void mouseClicked() {
-  if (over != true) {
-    if (mouseX<15&&mouseX>0&&mouseY<15&&mouseY>0) {
-      if (darkMode) {
-        darkMode = false;
-      } else {
-        darkMode = true;
-      }
-    }
-    if (mouseX<450&&mouseX>100&&mouseY<125&&mouseY>25) {
-      if (mode<3) {
-        mode++;
-        if (turn == 2) {
-          AI();
-          score();
-        }
-      } else {
-        mode=0;
-      }
-    }
-    if (turn == 1) || mode == 1);
-       }
-}
-void gamePlayClick(){
-      score();
-      if (mode != 0 && turn == 2) {
-        AI();
-        score();
-      }
-    }
-    gamePlayDraw();
-  }
-   quitButtonFont();
-}
+
+
 
 void modeDraw() {
   fill(dark);
@@ -347,6 +314,27 @@ void setup()
   line(0, height*1/12, width*1/3, height*1/12);
   line(0, height*2/12, width*1/3, height*2/12);
   
+  // 
+  
+  size(600, 600); //To Illustrate use of Display Geometry
+  //fullScreen(); //uses displayWidth and displayHeight
+  println("Screen Width:", displayWidth, "\tHeight:", displayHeight);
+  println("Starting of Console"); // If you cannot see this, the find another way to see the list on the program
+  
+  background(255);
+  
+  //Main Divisions
+  line(width*1/3, 0, width*1/3, height);
+  
+  line(width*2/3, 0, width*2/3, height);
+  line(0, height*1/4, width, height*1/4);
+  line(0, height*1/2, width, height*1/2);
+  line(0, height*3/4, width, height*3/4);
+  
+  //Easy, Medium, Mastery Buttons
+  line(0, height*1/12, width*1/3, height*1/12);
+  line(0, height*2/12, width*1/3, height*2/12);
+  
 }//End Setup
 //
 void quitButtonDraw() {
@@ -366,6 +354,11 @@ if (mouseX >= width*19/20  && mouseX <= width && mouseY >= height*0 && mouseY <=
   fill(255); //Reset to white for rest of the program
 }
 
+
+
+//Variables, no call needed for variables-only
+
+  
 
 void mousePressed(){
 }//End mousePressed

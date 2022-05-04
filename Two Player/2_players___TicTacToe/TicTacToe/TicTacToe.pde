@@ -17,7 +17,7 @@ void quitButtonRect() {
 }
 //
 
- 
+
 
 PFont font;
 int Xscore = 0;
@@ -73,11 +73,11 @@ void draw() {
   rect(0, 0, 15, 15);
   fill(light);
   stroke(dark);
-fill(255,200,200);
+  fill(255, 200, 200);
   rect (100, 25, 350, 100);
   modeDraw();
 
-fill(255,0,0);
+  fill(255, 0, 0);
   rect(0, 100, 150, 250);//row 1
   rect(150, 100, 300, 250);
   rect(300, 100, 450, 250);
@@ -120,7 +120,7 @@ void modeDraw() {
 }
 
 
-void mouseReleased(){  
+void mouseReleased() {
 }
 
 //
@@ -133,7 +133,7 @@ void score() {
     turn = 0;
     if (r1c1 == 1) {
       text("X Wins", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r1c1 == 2) {
       text("O Wins", width/2, height/10);
@@ -148,7 +148,7 @@ void score() {
     turn = 0;
     if (r2c1 == 1) {
       text("X Wins", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r2c1 == 2) {
       text("O Wins", width/2, height/10);
@@ -163,7 +163,7 @@ void score() {
     turn = 0;
     if (r3c1 == 1) {
       text("X Wins", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r3c1 == 2) {
       text("O Wins", width/2, height/10);
@@ -178,7 +178,7 @@ void score() {
     turn = 0;
     if (r1c1 == 1) {
       text("X Wins", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r1c1 == 2) {
       text("O Wins", width/2, height/10);
@@ -193,7 +193,7 @@ void score() {
     turn = 0;
     if (r1c2 == 1) {
       text("X Wins", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r1c2 == 2) {
       text("O Wins", width/2, height/10);
@@ -208,7 +208,7 @@ void score() {
     turn = 0;
     if (r1c3 == 1) {
       text("X Wins", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r1c3 == 2) {
       text("O Wins", width/2, height/10);
@@ -223,7 +223,7 @@ void score() {
     turn = 0;
     if (r1c1 == 1) {
       text("X Wins", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r1c1 == 2) {
       text("O Wins", width/2, height/10);
@@ -238,7 +238,7 @@ void score() {
     turn = 0;
     if (r1c3 == 1) {
       text("WINNER IS X!!! HOOOOOOOOOOOO", width/2, height/10);
-      Xscore++;  
+      Xscore++;
     }
     if (r1c3 == 2) {
       text("WINNER IS O!!! HOOOOOOOOOOOO", width/2, height/10);
@@ -294,51 +294,50 @@ void setup()
   //Code creates Square Geometry
   //Thus, phone can be either orientation, still able to play Tic Tac Toe
   //Algorithm saves user from themselves, always displays CANVAS
-//
- size(600, 600); //To Illustrate use of Display Geometry
-  //fullScreen(); //uses displayWidth and displayHeight
-  println("Screen Width:", displayWidth, "\tHeight:", displayHeight);
-  println("Starting of Console"); // If you cannot see this, the find another way to see the list on the program
-  
-  background(255);
-  
-  //Main Divisions
-  line(width*1/3, 0, width*1/3, height);
-  
-  line(width*2/3, 0, width*2/3, height);
-  line(0, height*1/4, width, height*1/4);
-  line(0, height*1/2, width, height*1/2);
-  line(0, height*3/4, width, height*3/4);
-  
-  //Easy, Medium, Mastery Buttons
-  line(0, height*1/12, width*1/3, height*1/12);
-  line(0, height*2/12, width*1/3, height*2/12);
-  
-  // 
-  
+  //
   size(600, 600); //To Illustrate use of Display Geometry
   //fullScreen(); //uses displayWidth and displayHeight
   println("Screen Width:", displayWidth, "\tHeight:", displayHeight);
   println("Starting of Console"); // If you cannot see this, the find another way to see the list on the program
-  
+
   background(255);
-  
+
   //Main Divisions
   line(width*1/3, 0, width*1/3, height);
-  
+
   line(width*2/3, 0, width*2/3, height);
   line(0, height*1/4, width, height*1/4);
   line(0, height*1/2, width, height*1/2);
   line(0, height*3/4, width, height*3/4);
-  
+
   //Easy, Medium, Mastery Buttons
   line(0, height*1/12, width*1/3, height*1/12);
   line(0, height*2/12, width*1/3, height*2/12);
-  
+
+  // 
+
+  size(600, 600); //To Illustrate use of Display Geometry
+  //fullScreen(); //uses displayWidth and displayHeight
+  println("Screen Width:", displayWidth, "\tHeight:", displayHeight);
+  println("Starting of Console"); // If you cannot see this, the find another way to see the list on the program
+
+  background(255);
+
+  //Main Divisions
+  line(width*1/3, 0, width*1/3, height);
+
+  line(width*2/3, 0, width*2/3, height);
+  line(0, height*1/4, width, height*1/4);
+  line(0, height*1/2, width, height*1/2);
+  line(0, height*3/4, width, height*3/4);
+
+  //Easy, Medium, Mastery Buttons
+  line(0, height*1/12, width*1/3, height*1/12);
+  line(0, height*2/12, width*1/3, height*2/12);
 }//End Setup
 //
 void quitButtonDraw() {
-if (mouseX >= width*19/20  && mouseX <= width && mouseY >= height*0 && mouseY <= height) {
+  if (mouseX >= width*19/20  && mouseX <= width && mouseY >= height*0 && mouseY <= height) {
     fill(otherYellow);
     quitButtonRect();
   } else {
@@ -358,11 +357,12 @@ if (mouseX >= width*19/20  && mouseX <= width && mouseY >= height*0 && mouseY <=
 
 //Variables, no call needed for variables-only
 
-  
 
-void mousePressed(){
+
+void mousePressed() {
 }//End mousePressed
 //
-void keyPressed() {}//End keyPressed
+void keyPressed() {
+}//End keyPressed
 //
 //End MAIN Program

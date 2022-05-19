@@ -1,12 +1,15 @@
-boolean crossTurn, circleTurn, tied, mouseReleased, box;
+
+boolean crossTurn, circleTurn, tied, mouseReleased, drawcross, box, mousePressed;
+boolean gameIsLive;
 //use to control the program's flow goes true or false;
 int boxSize, a, fps=12;
  int n; //number of this box
   int x, y; //position of box
   boolean crossed, circled;
   float radius;
+int lineGap = 0;
 
-
+int howmany; // total count of crosses/circles
 void setup() {
   size(700, 700);
   rectMode(CENTER);
@@ -50,6 +53,10 @@ void setup() {
       textCreator(round(25*min(width, height)/700), color(225, 225, 225), "Player O Score:", width*4/7, height*1/24);//score for player O
 
   rect(width*41/48, height*1/24, width*5.3/48, height*4/24); //Player 2 Score
+  
+}
+boolean overRect(float x, float y, float w, float h) {
+  return (mouseX >= x-w/2 && mouseX <= x+w/2 && mouseY >= y-h/2 && mouseY <= y+h/2);
 }
 void textCreator(int ts, color c, String s, float x, float y) {
   textSize(ts);
@@ -58,20 +65,16 @@ void textCreator(int ts, color c, String s, float x, float y) {
 }
 void GameOver(){
 }
- void drawCross() {
-    crossed = true; //mark this box as a cross then switch turn to AI
-
-
-    line(width*1.2/5, height*1.8/5, width*1/4, height*2.5/10);//game board 1
-
-    line(width-radius, height+radius, width+radius,height-radius);//cross code
+ //Drawing X on the rects
+ EachBox [] eachbox;//Every each box represent one data in the list from 0-8
+boolean isUserHoveringOverBox() {
+    return overRect(x, y, boxSize, boxSize);
   }
-
-  //test
-  boolean boxIsEmpty(int a) {
-  return (!eachbox[a].crossed && !eachbox[a].circled);
-}//used to indicate the value to return from a function
-  void mousePressed() {
+  void moveTo(int a) {
+  eachbox[a].drawCircle();
+  crossTurn = false;//Put a circle in this position
+}
+void mousePressed() {
 
   
   mouseReleased = true;
@@ -84,6 +87,39 @@ void GameOver(){
   }
 }
 
-void mouseReleased() {
-  mouseReleased = false;//when mouse released, confirm the movenment player made
+void drawCross() {
+    crossed = true; //mark this box as a cross then switch turn to AI
+    switchTurns();
+
+    if (howmany == 9) tied = true;
+
+    line(x-radius, y-radius, x+radius, y+radius);
+    line(x-radius, y+radius, x+radius, y-radius);//cross code
+  }
+boolean boxIsEmpty(int a) {
+  return (!eachbox[a].crossed && !eachbox[a].circled);
+}//used to indicate the value to return from a function
+
+class EachBox {
+  int n; //number of this box
+  int x, y; //position of box
+  boolean crossed, circled;
+
+// represent all the function Eachbox do for the program
+  EachBox(int num) {
+    rectMode(CENTER);
+    n = num;
+    num ++;
+
+    setBoxSize(num, round(num/3f - 0.6));
+  }
 }
+ void setBoxSize(int num, float a) {
+    x = round(boxSize * (num-a*3));
+    y = round(height/2+50 - boxSize + boxSize*a);
+  }
+
+
+//hi
+
+//determine which box will fill with cross

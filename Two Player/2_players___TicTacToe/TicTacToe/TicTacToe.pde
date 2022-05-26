@@ -63,7 +63,7 @@ void setup() {
 
   rect(width*41/48, height*1/24, width*5.3/48, height*4/24); //Player 2 Score
   
-  //origial code
+  //Abd code
 }
 
 void setup2 () {
@@ -101,7 +101,7 @@ void draw() {
 
 void checkFrameRate() {
   noStroke();
-  rectCreator(color(150, 225, 220), 100, 50, 80, 30);
+  rectCreator(0, 100, 50, 80, 30);
   stroke(0);
   textCreator(15, color(0), "Lag: " + round(100-100*(frameRate)/fps) + " %", 100, 50);
 }//check frame rate lag to make sure it work
@@ -132,7 +132,7 @@ void textCreator(int ts, color c, String s, float x, float y) {
   text(s, x, y);
 }
 
-void rectCreator(color c, float x, float y, float w, float h) {
+void rectCreator( color c, float x, float y, float w, float h) {
   fill(c);
   rect(x, y, w, h);
 }//They use default values to textCreator/textCreator
@@ -174,45 +174,24 @@ void checkHowMany () {
 
 void checkIfGameOver() {
   if (circleWins()) {
-    gameOver("CIRCLE WINS");
+    gameOver("Player X WINS");
   } else if (crossWins()) {
-    gameOver("CROSS WIN");
+    gameOver("Player O WIN");
   } else if (tied) {
     gameOver("TIED");
   } //connect the String message (line 259)
 }
 
 //Create the game over menu
-void gameOver(String message) {
-  gameIsLive = false;// create variable message which represent the result of game 
-  if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
-  stroke(0, c);
-  rectCreator(color(0, c), width/2, height/2 + 50, width-100, 200);
-  textCreator(round(95*min(width, height)/800), color(255, c), message, width/2, height/2);//message should only be lose or tied if the code working
-  rect(width/3, height/2 + 100, 100, 50);
-  rect(width*2/3, height/2 + 100, 100, 50);//Create the rect part of game over menu.
 
-  textCreator(round(25*min(width, height)/800), color(0, c), "RESTART", width/3, height/2+100);
-  text("SAVE", width*2/3, height/2 + 100);//Create the text part of game over menu.
-
-  stroke(0);
-  if (overRect(width/3, height/2+100, 100, 50) && mouseReleased) {
-    mouseReleased = false;
-    //when player click restart, reset all variables and clear background
-    setup();
-  } else if (overRect(width*2/3, height/2+100, 100, 50) && mouseReleased) {
-    mouseReleased = false;
-    saveFrame ();
-  }//when player click save, auto save the  screenshot of this particular game to folder
-}
 
 void switchTurns() {
   //Player's turn
 
   howmany ++; 
   if (howmany % 2 == 1 && gameIsLive) {
-    crossTurn = false;
-    circleTurn = true;
+    crossTurn = true;
+    circleTurn = false;
   }//because player always play first so every time when howmany % 2 == 1 it will be player's turn
 }
 
@@ -312,7 +291,7 @@ class EachBox {
   }
 
 
-//determine the background and draw the board
+//determine the background and draw the board, X and O
   void drawCross() {
     crossed = true; //mark this box as a cross then switch turn to AI
     switchTurns();
@@ -337,3 +316,22 @@ class EachBox {
     return overRect(x, y, boxSize, boxSize);
   }
 }//determine which box will fill with cross
+void gameOver(String message) {
+  gameIsLive = false;// create variable message which represent the result of game 
+  if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
+  stroke(0, c);
+ rectCreator(color(0, c), width/2, height/2 + 50, width-100, 200);
+  textCreator(round(95*min(width, height)/800), color(255, c), message, width/2, height/2);//message should only be lose or tied if the code working
+  //restart board
+  rect(width/3, height/2 + 100, 100, 50);
+textCreator(round(25*min(width, height)/800), color(0, c), "RESTART", width/3, height/2+100);
+  stroke(0);
+  if (overRect(width/3, height/2+100, 100, 50) && mouseReleased) {
+    mouseReleased = false;
+    //when player click restart, reset all variables and clear background
+    setup();
+  }  else if (overRect(width*2/3, height/2+100, 100, 50) && mouseReleased) {
+    mouseReleased = false;
+    saveFrame ();
+  }//when player click save, auto save the  screenshot of this particular game to folder
+}

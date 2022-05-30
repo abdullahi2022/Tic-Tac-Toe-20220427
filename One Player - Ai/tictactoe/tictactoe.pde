@@ -1,7 +1,7 @@
 EachBox [] eachbox;//Every each box represent one data in the list from 0-8
 boolean crossTurn, circleTurn, mouseReleased, tied;//use to control the program's flow goes true or false
 int howmany; //Total count of crosses/circles
-int time, finalTime; //Delays AI
+int time, finalTime; //Delays circle
 int boxSize, fps = 12;//12 frames per second
 
 float c; //Game over menu's color and delay increment
@@ -10,8 +10,7 @@ boolean gameIsLive; //checks if game is being played
 
 float radius;
 void setup() {
-   background(150,250,450);
-
+ background(150,300,150);
 
   size(700, 700);
   rectMode(CENTER);
@@ -55,21 +54,19 @@ void setup() {
     rect(width*3.7/5, height*4.1/5, width*1/4, height*2.5/10);//game board 9
 
  //Scoreboard
-  rect(width*1.6/10, height*1/24, width*5/15, height*4/24); //Player 1
-   textCreator(round(25*min(width, height)/700), color(255, 150,0), "Player X Score:", width*1.25/10, height*1/24);//score for player O
+ // rect(width*1.6/10, height*1/24, width*5/15, height*4/24); //Player 1
+ //  textCreator(round(25*min(width, height)/700), color(255, 150,0), "Player X Score:", width*1.25/10, height*1/24);//score for player O
  // rect(width*1.8/5, height*1/24, width*5/48, height*4/24); //Player 1 Score
  
-    rect(width*8.4/10, height*1/24, width*5/15, height*4/24); //Player O
-   textCreator(round(25*min(width, height)/700), color(0), "Player O Score:", width*8.131/10, height*1/24);//score for player O
+ //   rect(width*8.4/10, height*1/24, width*5/15, height*4/24); //Player O
+ //  textCreator(round(25*min(width, height)/700), color(255,0,  80), "Player O Score:", width*8.131/10, height*1/24);//score for player O
 
   
   
   //intro to the game
-          textCreator(round(25*min(width, height)/700), color(159, 0, 159), "Tic-Tac-Toe", width*3.4/7, height*1/24);//score for player O
-                   textCreator(round(25*min(width, height)/700), color(255, 0, 0), "2v2", width*3.4/7, height*2/24);//score for player O
-
-          textCreator(round(25*min(width, height)/700), color(150, 30, 450), "by Abdullahi", width*3.4/7, height*3/24);//score for player O
-
+          textCreator(round(25*min(width, height)/700), color(255, 0, 0), "Tic-Tac-Toe", width*3.4/7, height*1/24);
+          textCreator(round(25*min(width, height)/700), color(0), "Easy mode", width*3.4/7, height*2/24);
+          textCreator(round(25*min(width, height)/700), color(255, 0, 0), "by Abdullahi", width*3.4/7, height*3/24);
 
  // rect(width*41/48, height*1/24, width*5.3/48, height*4/24); //Player 2 Score
   
@@ -84,7 +81,7 @@ void setup2 () {
   circleTurn = false;
   tied = false;
   time = 0;//set the time to zero
-  howmany = 0;//set the total count of crosses/circles to zero
+  howmany = 0;//set the total count of crosses/circles to zerocircle
   boxSize = round(min(width, height)/4);
   radius = boxSize/2.5;
   c = 0;
@@ -106,10 +103,6 @@ void draw() {
   
   
   //checkFrameRate();
-  
-  
-  //O diagra on two left corner
-//ellipse(172,225,77,77);
 }
 
 
@@ -241,7 +234,7 @@ boolean Op(int a, int b, int c) {
     drawLines(a, c);
     return true;
   } else return false;
-}//xp represent player's move and op represent AI
+}//xp represent player's move and op represent circle
 
 //Check if the user miraculously wins
 boolean Xp(int a, int b, int c) {
@@ -307,7 +300,7 @@ class EachBox {
 
 //determine the background and draw the board, X and O
   void drawCross() {
-    crossed = true; //mark this box as a cross then switch turn to AI
+    crossed = true; //mark this box as a cross then switch turn to circle
     switchTurns();
 
     if (howmany == 9) tied = true;
@@ -317,7 +310,7 @@ class EachBox {
   }
 
   void drawCircle() {
-    circled = true; //mark this box as a cross then switch turn to AI
+    circled = true; //mark this box as a cross then switch turn to circle
     switchTurns();
 
     if (howmany == 9) tied = true;
@@ -349,3 +342,4 @@ textCreator(round(25*min(width, height)/800), color(0, c), "RESTART", width/3, h
     saveFrame ();
   }//when player click save, auto save the  screenshot of this particular game to folder
 }
+//ai computer O

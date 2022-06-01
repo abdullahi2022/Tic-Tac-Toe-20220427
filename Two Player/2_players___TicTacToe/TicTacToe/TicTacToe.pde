@@ -10,7 +10,6 @@ boolean gameIsLive; //checks if game is being played
 
 float radius;
 void setup() {
-   background(150,250,450);
 
 
   size(700, 700);
@@ -23,6 +22,8 @@ void setup() {
   
 
   setup2();
+  //background(280, 333, 220);
+background(150,250,450);
 
 
    //rect(width/3, height/2 + 100, 100, 50);
@@ -115,8 +116,9 @@ void draw() {
 
 void checkFrameRate() {
   noStroke();
-  rectCreator(0, 100, 50, 80, 30);
-  stroke(0);
+ // rectCreator(0, 100, 50, 80, 30);
+  //  rectCreator(color(150, 225, 220), 100, 50, 80, 30);
+stroke(0);
   textCreator(15, color(0), "Lag: " + round(100-100*(frameRate)/fps) + " %", 100, 50);
 }//check frame rate lag to make sure it work
 

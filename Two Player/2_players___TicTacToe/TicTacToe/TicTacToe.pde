@@ -5,6 +5,7 @@ int time, finalTime; //Delays AI
 int boxSize, fps = 12;//12 frames per second
 
 float c; //Game over menu's color and delay increment
+boolean circleTurnTimer; //check if timer for Ai's delay is on
 
 boolean gameIsLive; //checks if game is being played
 
@@ -23,7 +24,7 @@ void setup() {
 
   setup2();
   //background(280, 333, 220);
-background(150,250,450);
+  background(555, 333, 220);
 
 
    //rect(width/3, height/2 + 100, 100, 50);
@@ -56,12 +57,12 @@ background(150,250,450);
     rect(width*3.7/5, height*4.1/5, width*1/4, height*2.5/10);//game board 9
 
  //Scoreboard
-  rect(width*1.6/10, height*1/24, width*5/15, height*4/24); //Player 1
-   textCreator(round(25*min(width, height)/700), color(255, 150,0), "Player X Score:", width*1.25/10, height*1/24);//score for player O
+  //rect(width*1.6/10, height*1/24, width*5/15, height*4/24); //Player 1
+  // textCreator(round(25*min(width, height)/700), color(255, 150,0), "Player X Score:", width*1.25/10, height*1/24);//score for player O
  // rect(width*1.8/5, height*1/24, width*5/48, height*4/24); //Player 1 Score
  
-    rect(width*8.4/10, height*1/24, width*5/15, height*4/24); //Player O
-   textCreator(round(25*min(width, height)/700), color(0), "Player O Score:", width*8.131/10, height*1/24);//score for player O
+   // rect(width*8.4/10, height*1/24, width*5/15, height*4/24); //Player O
+  // textCreator(round(25*min(width, height)/700), color(0), "Player O Score:", width*8.131/10, height*1/24);//score for player O
 
   
   
@@ -82,7 +83,7 @@ void setup2 () {
   //Reset the variables and check it everytime when game start
   gameIsLive = true;
   crossTurn = true;
-  circleTurn = false;
+  circleTurn = true;
   tied = false;
   time = 0;//set the time to zero
   howmany = 0;//set the total count of crosses/circles to zero
@@ -158,17 +159,6 @@ void moveTo(int a) {
   circleTurn = false;//Put a circle in this position
 }
 
-void startCorner() {
-  int r = round(random(3));//Random a float number between 0-3(includ decimal), then round it to an interger(0 and 3 are 1/6, 1 and 2 are 1/3)
-  int a = 0;//set the variable to 0
-  if (r == 0) a = 0;
-  else if (r == 1) a = 2;//circleTurn
-  else if (r == 2) a = 6;
-  else a = 8;// when r =3, a= 8
-  //When player start at center,randomly decides a corner to start from, and put a circle in that position.
-  eachbox[a].drawCircle();
-  circleTurn = false;
-}
 
 
 void randomAction() {
@@ -351,3 +341,47 @@ textCreator(round(25*min(width, height)/800), color(0, c), "RESTART", width/3, h
     saveFrame ();
   }//when player click save, auto save the  screenshot of this particular game to folder
 }
+//circle draw
+
+void startCorner() {
+  int r = round(random(3));//Random a float number between 0-3(includ decimal), then round it to an interger(0 and 3 are 1/6, 1 and 2 are 1/3)
+  int a = 0;//set the variable to 0
+  if (r == 0) a = 0;
+  else if (r == 1) a = 2;
+  else if (r == 2) a = 6;
+  else a = 8;// when r =3, a= 8
+  //When player start at center,randomly decides a corner to start from, and put a circle in that position.
+  eachbox[a].drawCircle();
+  circleTurn = false;
+}
+void aiFirstMove() {
+  if (K1(4)) startCorner();
+  else moveTo(4);
+   //Take the center if player didnt make their first move on it (K1 represent the player's first move)
+}
+void aiDelay() {
+  //Delay the AI's move to let player hae time to make move
+  finalTime = (int)frameRate;
+  if (time < finalTime) time++;//increase time by 1 which is AI's delay time
+  //When the time comes, play it once
+  else {
+    circleTurnTimer = false;
+    circleTurn = true;
+
+    if (howmany == 1) aiFirstMove();//when how many =1, it's player's move
+    else circleMoves();
+
+    time = 0;//set time back to zero
+    
+    circleTurn = false;
+    crossTurn = true;//cross turn = player turn
+  }
+}
+void circleMoves() {
+ 
+
+    int i = round(random(8));
+    if (boxIsEmpty(i) && i != 1) {
+      moveTo(i);//work same with line 115. But here it could be any random number between 0-8 but 1(figure why is 1 later)
+    }
+  }

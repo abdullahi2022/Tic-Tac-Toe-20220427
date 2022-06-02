@@ -13,14 +13,7 @@ float radius;
 void setup() {
   size(700, 700);
   fps = 30;
-  frameRate(fps);//Specifies the number of frames to be displayed every second
-                  // I will figure out why it is 30 fps later.
-
-  rectMode(CENTER);//Set first two parameters of rect as the shape's center point
-  textAlign(CENTER, CENTER);//Sets the current alignment for drawing text to center
-  ellipseMode(RADIUS);//Set the first two parameters of ellipse() as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.
-  strokeWeight(3);
-
+  
   setup2();
 }
 
@@ -39,7 +32,7 @@ void setup2 () {
   c = 0;
 
   //Clean up background
-  background(444, 555, 150);
+  background(150, 225, 220);
   eachbox = new EachBox[9];
 
   for (int i = 0; i < 9; i ++) {
@@ -91,8 +84,9 @@ void mouseReleased() {
 
 void textAtTop() {
   textCreator(40, color(0), "Tic-Tac-Toe", width/2, 40);
-  textCreator(20, color(255, 0, 0), "Easy Mode", width/2, 75);
-  textCreator(25, color(0), "By Abdullahi", width/2, 100);
+  textCreator(20, color(255, 0, 0), "UNBEATABLE", width/2, 75);
+  textCreator(25, color(0), "By Tanay Singhal", width/2, 100);
+ textCreator(15, color(0), " Analyzed By Yan", width/2, 125);
 }//Text Part
 
 void textCreator(int ts, color c, String s, float x, float y) {
@@ -125,14 +119,93 @@ void startCorner() {
 
 void aiFirstMove() {
   if (K1(4)) startCorner();
-  else moveTo(6);
+  else moveTo(4);
    //Take the center if player didnt make their first move on it (K1 represent the player's first move)
 }
 
 void aiMoves() {
    //Attack movies corresponding  to the player's action (Only Run Once When AI have chance to make threaten)
   if (K2(1, 2, 0)) moveTo(0);
+  else if (K2(0, 2, 1)) moveTo(1);
+  else if (K2(0, 1, 2)) moveTo(2);
+  else if (K2(4, 5, 3)) moveTo(3);
+  else if (K2(3, 5, 4)) moveTo(4);
+  else if (K2(3, 4, 5)) moveTo(5);//not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K2(7, 8, 6)) moveTo(6);
+  else if (K2(6, 8, 7)) moveTo(7);
+  else if (K2(6, 7, 8)) moveTo(8);
+  //done with horizontal
+  else if (K2(3, 6, 0)) moveTo(0);
+  else if (K2(4, 7, 1)) moveTo(1);
+  else if (K2(5, 8, 2)) moveTo(2);
 
+  else if (K2(0, 6, 3)) moveTo(3);
+  else if (K2(1, 7, 4)) moveTo(4);
+  else if (K2(2, 8, 5)) moveTo(5);
+
+  else if (K2(0, 3, 6)) moveTo(6);
+  else if (K2(1, 4, 7)) moveTo(7);//not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K2(2, 5, 8)) moveTo(8);
+  //done with vertical
+  else if (K2(4, 8, 0)) moveTo(0);
+  else if (K2(6, 4, 2)) moveTo(2); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K2(0, 8, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K2(6, 2, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K2(2, 4, 6)) moveTo(6); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K2(0, 4, 8)) moveTo(8); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+
+  //Attack movies corresponding  to the player's action (Only run once when player already made threaten)
+  else if (K3(1, 2, 0)) moveTo(0);
+  else if (K3(0, 2, 1)) moveTo(1);
+  else if (K3(0, 1, 2)) moveTo(2);
+  else if (K3(4, 5, 3)) moveTo(3);
+  else if (K3(3, 5, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(3, 4, 5)) moveTo(5); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K3(7, 8, 6)) moveTo(6);
+  else if (K3(6, 8, 7)) moveTo(7);
+  else if (K3(6, 7, 8)) moveTo(8);
+  //done with horizontal
+  else if (K3(3, 6, 0)) moveTo(0);
+  else if (K3(4, 7, 1)) moveTo(1);
+  else if (K3(5, 8, 2)) moveTo(2);
+
+  else if (K3(0, 6, 3)) moveTo(3);
+  else if (K3(1, 7, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(2, 8, 5)) moveTo(5);
+  else if (K3(0, 3, 6)) moveTo(6);
+  else if (K3(1, 4, 7)) moveTo(7); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K3(2, 5, 8)) moveTo(8);
+  //done with vertical
+  else if (K3(4, 8, 0)) moveTo(0);
+  else if (K3(4, 6, 2)) moveTo(2);
+  else if (K3(0, 8, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(2, 6, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(2, 4, 6)) moveTo(6); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K3(0, 4, 8)) moveTo(8); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+
+  //defending strategy (thinking 2 steps ahead to avoid the double threaten)
+  //Set 1
+  else if (K3(1, 3, 0)) moveTo(0);
+  else if (K3(1, 5, 2)) moveTo(2);
+  else if (K3(3, 7, 6)) moveTo(6);
+  else if (K3(5, 7, 8)) moveTo(8);
+
+  //Set 2
+  else if (K3(3, 8, 7)) moveTo(7); //3,8--> 7
+  else if (K3(5, 6, 7)) moveTo(7);//6,5--> 7
+  else if (K3(2, 7, 5)) moveTo(5); //2,7--> 5
+  else if (K3(1, 8, 5)) moveTo(5);//1,8--> 5
+  else if (K3(0, 7, 3)) moveTo(3); //2,7--> 3
+  else if (K3(1, 6, 3)) moveTo(3);//1,8--> 3
+  else if (K3(0, 5, 1)) moveTo(1);//0,5-->1
+  else if (K3(2, 3, 1)) moveTo(1);//2,3-->1
+
+  //Set 3
+  else if (K3(2, 4, 8)) moveTo(8);//0,5-->1
+  else if (K3(0, 4, 6)) moveTo(6);//2,3-->1
+  else if (K3(4, 8, 2)) moveTo(2);//0,5-->1
+  else if (K3(4, 6, 0)) moveTo(0);//2,3-->1
+ 
   //random
   //Set 4 when the player take their first two step at corner take random action
   else if (K1(2) && K1(6)) randomAction(); //2, 6
@@ -182,16 +255,20 @@ void gameOver(String message) {
   stroke(0, c);
   rectCreator(color(0, c), width/2, height/2 + 50, width-100, 200);
   textCreator(round(95*min(width, height)/800), color(255, c), message, width/2, height/2);//message should only be lose or tied if the code working
-  rect(width*3/6, height/2 + 100, 100, 50);
+  rect(width/3, height/2 + 100, 100, 50);
+  rect(width*2/3, height/2 + 100, 100, 50);//Create the rect part of game over menu.
 
-  textCreator(round(25*min(width, height)/800), color(0, c), "RESTART", width*3/6, height/2+100);
+  textCreator(round(25*min(width, height)/800), color(0, c), "RESTART", width/3, height/2+100);
+  text("SAVE", width*2/3, height/2 + 100);//Create the text part of game over menu.
 
   stroke(0);
-  if (overRect(width*3/6, height/2+100, 100, 50) && mouseReleased) {
+  if (overRect(width/3, height/2+100, 100, 50) && mouseReleased) {
     mouseReleased = false;
     //when player click restart, reset all variables and clear background
     setup();
-
+  } else if (overRect(width*2/3, height/2+100, 100, 50) && mouseReleased) {
+    mouseReleased = false;
+    saveFrame ();
   }//when player click save, auto save the  screenshot of this particular game to folder
 }
 

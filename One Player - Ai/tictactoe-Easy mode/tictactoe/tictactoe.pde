@@ -1,22 +1,16 @@
-EachBox [] eachbox;//Every each box represent one data in the list from 0-8
-boolean crossTurn, aiTurn, mouseReleased, tied;//use to control the program's flow goes true or false
+boolean crossTurn, aiTurn, mouseReleased, tied, aiTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
 int howmany; //Total count of crosses/circles
-int time, finalTime; //Delays AI
-int boxSize, fps = 12;//12 frames per second
+int time, finalTime, boxSize, fps = 12; //Delays AI
+EachBox [] eachbox;
+float c, radius; 
 
-float c; //Game over menu's color and delay increment
-
-boolean aiTurnTimer; //check if timer for Ai's delay is on
-boolean gameIsLive; //checks if game is being played
-
-float radius;
 void setup() {
   size(700, 700);
   fps = 30;
   frameRate(fps);//Specifies the number of frames to be displayed every second
                   // I will figure out why it is 30 fps later.
 
-  rectMode(CENTER);//Set first two parameters of rect as the shape's center point
+  
   textAlign(CENTER, CENTER);//Sets the current alignment for drawing text to center
   ellipseMode(RADIUS);//Set the first two parameters of ellipse() as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.
   strokeWeight(3);
@@ -51,9 +45,6 @@ void setup2 () {
 
 //Separate input/setup from what needs to be drawn constantly
 void draw() {
-  //draw doesn't loop after tying..
-
-  //Not only checks gameover but also plays fade-in animation
   checkIfGameOver();
   
   //Delays AI's turn when it is Ai's turn
@@ -165,26 +156,17 @@ void checkHowMany () {
   if (howmany == 9) tied = true;
 }
 
-void checkIfGameOver() {
-  if (circleWins()) {
-    gameOver("YOU LOSE");
-  } else if (crossWins()) {
-    gameOver("YOU WIN");
-  } else if (tied) {
-    gameOver("TIED");
-  } //connect the String message (line 259)
-}
+
 
 //Create the game over menu
 void gameOver(String message) {
   gameIsLive = false;// create variable message which represent the result of game 
   if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
   stroke(0, c);
-  rectCreator(color(0, c), width/2, height/2 + 50, width-100, 200);
-  textCreator(round(95*min(width, height)/800), color(255, c), message, width/2, height/2);//message should only be lose or tied if the code working
+  rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
+  textCreator(round(95*min(width, height)/800), color(0), message, width/2, height/2);//message should only be lose or tied if the code working
   rect(width*3/6, height/2 + 100, 100, 50);
-
-  textCreator(round(25*min(width, height)/800), color(0, c), "RESTART", width*3/6, height/2+100);
+  textCreator(round(25*min(width, height)/800), color(444, 555, 150), "RESTART", width*3/6, height/2+100);
 
   stroke(0);
   if (overRect(width*3/6, height/2+100, 100, 50) && mouseReleased) {
@@ -319,7 +301,22 @@ class EachBox {
   }
 
   void drawBoard() {
-    rectCreator(color(255, 255, 220), x, y, boxSize, boxSize);
+   
+//    rectCreator(color(255, 255, 220), x, y, boxSize, boxSize);
+rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
+  rect(width*2.45/5, height*1.6/5, width*1/4, height*2.5/10);//game board 2
+  rect(width*3.7/5, height*1.6/5, width*1/4, height*2.5/10);//game board 3
+  
+  //column 2
+  rect(width*1.25/5, height*2.87/5, width*1/4, height*2.5/10);//game board 4
+  rect(width*2.45/5, height*2.87/5, width*1/4, height*2.5/10);//game board 5
+  rect(width*3.7/5, height*2.87/5, width*1/4, height*2.5/10);//game board 6
+  
+  //column 3
+    rect(width*1.25/5, height*4.1/5, width*1/4, height*2.5/10);//game board 7
+    rect(width*2.45/5, height*4.1/5, width*1/4, height*2.5/10);//game board 8
+    rect(width*3.7/5, height*4.1/5, width*1/4, height*2.5/10);//game board 9
+
   }
 //determine the background and draw the board
   void drawCross() {
@@ -344,4 +341,13 @@ class EachBox {
   boolean isUserHoveringOverBox() {
     return overRect(x, y, boxSize, boxSize);
   }
-}//determine which box will fill with cross
+}
+void checkIfGameOver() {
+  if (circleWins()) {
+    gameOver("YOU LOSE");
+  } else if (crossWins()) {
+    gameOver("YOU WIN");
+  } else if (tied) {
+    gameOver("TIED");
+  } //connect the String message (line 259)
+}

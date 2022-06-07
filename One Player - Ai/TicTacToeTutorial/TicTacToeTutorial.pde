@@ -1,12 +1,12 @@
 EachBox [] eachbox;//Every each box represent one data in the list from 0-8
-boolean crossTurn, aiTurn, mouseReleased, tied;//use to control the program's flow goes true or false
-int howmany; //Total count of crosses/circles
-int time, finalTime; //Delays AI
+boolean crossTurn, player2Turn, mouseReleased, tied;//use to control the program's flow goes true or false
+int howmany; //Total count of crosses/player2s
+int time, finalTime; //Delays player2
 int boxSize, fps = 12;//12 frames per second
 
 float c; //Game over menu's color and delay increment
 
-boolean aiTurnTimer; //check if timer for Ai's delay is on
+boolean player2TurnTimer; //check if timer for player2's delay is on
 boolean gameIsLive; //checks if game is being played
 
 float radius;
@@ -29,17 +29,17 @@ void setup2 () {
   //Reset the variables and check it everytime when game start
   gameIsLive = true;
   crossTurn = true;
-  aiTurnTimer = false;
-  aiTurn = false;
+  player2TurnTimer = false;
+  player2Turn = false;
   tied = false;
   time = 0;//set the time to zero
-  howmany = 0;//set the total count of crosses/circles to zero
+  howmany = 0;//set the total count of crosses/player2s to zero
   boxSize = round(min(width, height)/4);
   radius = boxSize/2.5;
   c = 0;
 
   //Clean up background
-  background(150, 225, 220);
+  background(150, 150, 150 );
   eachbox = new EachBox[9];
 
   for (int i = 0; i < 9; i ++) {
@@ -56,9 +56,9 @@ void draw() {
   //Not only checks gameover but also plays fade-in animation
   checkIfGameOver();
   
-  //Delays AI's turn when it is Ai's turn
-  if (aiTurnTimer && gameIsLive) {
-    aiDelay();
+  //Delays player2's turn when it is player2's turn
+  if (player2TurnTimer && gameIsLive) {
+    player2Delay();
   }
 
   //checkFrameRate();
@@ -108,8 +108,8 @@ void rectCreator(color c, float x, float y, float w, float h) {
 }//They use default values to textCreator/textCreator
 
 void moveTo(int a) {
-  eachbox[a].drawCircle();
-  aiTurn = false;//Put a circle in this position
+  eachbox[a].drawplayer2();
+  player2Turn = false;//Put a player2 in this position
 }
 
 void startCorner() {
@@ -119,19 +119,19 @@ void startCorner() {
   else if (r == 1) a = 2;
   else if (r == 2) a = 6;
   else a = 8;// when r =3, a= 8
-  //When player start at center,randomly decides a corner to start from, and put a circle in that position.
-  eachbox[a].drawCircle();
-  aiTurn = false;
+  //When player start at center,randomly decides a corner to start from, and put a player2 in that position.
+  eachbox[a].drawplayer2();
+  player2Turn = false;
 }
 
-void aiFirstMove() {
+void player2FirstMove() {
   if (K1(4)) startCorner();
   else moveTo(4);
    //Take the center if player didnt make their first move on it (K1 represent the player's first move)
 }
 
-void aiMoves() {
-   //Attack movies corresponding  to the player's action (Only Run Once When AI have chance to make threaten)
+void player2Moves() {
+   //Attack movies corresponding  to the player's action (Only Run Once When player2 have chance to make threaten)
   if (K2(1, 2, 0)) moveTo(0);
   else if (K2(0, 2, 1)) moveTo(1);
   else if (K2(0, 1, 2)) moveTo(2);
@@ -156,8 +156,8 @@ void aiMoves() {
   //done with vertical
   else if (K2(4, 8, 0)) moveTo(0);
   else if (K2(6, 4, 2)) moveTo(2); //not necessary cause player wont got chance to go center if they didnt make their first move on it
-  else if (K2(0, 8, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
-  else if (K2(6, 2, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K2(0, 8, 4)) moveTo(4); //not necessary cause player2 will take it first move on center if it's possibe (Player didn't take it)
+  else if (K2(6, 2, 4)) moveTo(4); //not necessary cause player2 will take it first move on center if it's possibe (Player didn't take it)
   else if (K2(2, 4, 6)) moveTo(6); //not necessary cause player wont got chance to go center if they didnt make their first move on it
   else if (K2(0, 4, 8)) moveTo(8); //not necessary cause player wont got chance to go center if they didnt make their first move on it
 
@@ -166,7 +166,7 @@ void aiMoves() {
   else if (K3(0, 2, 1)) moveTo(1);
   else if (K3(0, 1, 2)) moveTo(2);
   else if (K3(4, 5, 3)) moveTo(3);
-  else if (K3(3, 5, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(3, 5, 4)) moveTo(4); //not necessary cause player2 will take it first move on center if it's possibe (Player didn't take it)
   else if (K3(3, 4, 5)) moveTo(5); //not necessary cause player wont got chance to go center if they didnt make their first move on it
   else if (K3(7, 8, 6)) moveTo(6);
   else if (K3(6, 8, 7)) moveTo(7);
@@ -177,7 +177,7 @@ void aiMoves() {
   else if (K3(5, 8, 2)) moveTo(2);
 
   else if (K3(0, 6, 3)) moveTo(3);
-  else if (K3(1, 7, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(1, 7, 4)) moveTo(4); //not necessary cause player2 will take it first move on center if it's possibe (Player didn't take it)
   else if (K3(2, 8, 5)) moveTo(5);
   else if (K3(0, 3, 6)) moveTo(6);
   else if (K3(1, 4, 7)) moveTo(7); //not necessary cause player wont got chance to go center if they didnt make their first move on it
@@ -185,8 +185,8 @@ void aiMoves() {
   //done with vertical
   else if (K3(4, 8, 0)) moveTo(0);
   else if (K3(4, 6, 2)) moveTo(2);
-  else if (K3(0, 8, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
-  else if (K3(2, 6, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(0, 8, 4)) moveTo(4); //not necessary cause player2 will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(2, 6, 4)) moveTo(4); //not necessary cause player2 will take it first move on center if it's possibe (Player didn't take it)
   else if (K3(2, 4, 6)) moveTo(6); //not necessary cause player wont got chance to go center if they didnt make their first move on it
   else if (K3(0, 4, 8)) moveTo(8); //not necessary cause player wont got chance to go center if they didnt make their first move on it
 
@@ -246,7 +246,7 @@ void checkHowMany () {
 }
 
 void checkIfGameOver() {
-  if (circleWins()) {
+  if (player2Wins()) {
     gameOver("YOU LOSE");
   } else if (crossWins()) {
     gameOver("YOU WIN");
@@ -285,25 +285,25 @@ void switchTurns() {
   howmany ++; 
   if (howmany % 2 == 1 && gameIsLive) {
     crossTurn = false;
-    aiTurnTimer = true;
+    player2TurnTimer = true;
   }//because player always play first so every time when howmany % 2 == 1 it will be player's turn
 }
 
-void aiDelay() {
-  //Delay the AI's move to let player hae time to make move
+void player2Delay() {
+  //Delay the player2's move to let player hae time to make move
   finalTime = (int)frameRate;
-  if (time < finalTime) time++;//increase time by 1 which is AI's delay time
+  if (time < finalTime) time++;//increase time by 1 which is player2's delay time
   //When the time comes, play it once
   else {
-    aiTurnTimer = false;
-    aiTurn = true;
+    player2TurnTimer = false;
+    player2Turn = true;
 
-    if (howmany == 1) aiFirstMove();//when how many =1, it's player's move
-    else aiMoves();
+    if (howmany == 1) player2FirstMove();//when how many =1, it's player's move
+    else player2Moves();
 
     time = 0;//set time back to zero
     
-    aiTurn = false;
+    player2Turn = false;
     crossTurn = true;//cross turn = player turn
   }
 }
@@ -315,17 +315,17 @@ boolean overRect(float x, float y, float w, float h) {
 
 //Check if a box is empty
 boolean boxIsEmpty(int a) {
-  return (!eachbox[a].crossed && !eachbox[a].circled);
+  return (!eachbox[a].crossed && !eachbox[a].player2d);
 }//used to indicate the value to return from a function
 
 //Check if a box is full
 boolean boxFull(int a) {
-  return (eachbox[a].crossed || eachbox[a].circled);
+  return (eachbox[a].crossed || eachbox[a].player2d);
 }
 
-//Check if a circle occupies the box
+//Check if a player2 occupies the box
 boolean K4(int a) {
-  return (eachbox[a].circled);
+  return (eachbox[a].player2d);
 }
 
 //Check if a cross occupies the box
@@ -339,7 +339,7 @@ boolean Op(int a, int b, int c) {
     drawLines(a, c);
     return true;
   } else return false;
-}//xp represent player's move and op represent AI
+}//xp represent player's move and op represent player2
 
 //Check if the user miraculously wins
 boolean Xp(int a, int b, int c) {
@@ -349,10 +349,10 @@ boolean Xp(int a, int b, int c) {
   } else return false;
 }
 
-boolean K2(int a, int b, int c) { //check circle position
+boolean K2(int a, int b, int c) { //check player2 position
   return (K4(a) && K4(b) && boxIsEmpty(c));
 }
-boolean K3(int a, int b, int c) { //check circle position
+boolean K3(int a, int b, int c) { //check player2 position
   return (K1(a) && K1(b) && boxIsEmpty(c));
 }
 
@@ -360,7 +360,7 @@ void drawLines(int a, int c) {
   line(eachbox[a].x, eachbox[a].y, eachbox[c].x, eachbox[c].y);
 }//the function for draw lines
 
-boolean circleWins() {
+boolean player2Wins() {
   if (Op(0, 1, 2)) return true;
   else if (Op(3, 4, 5)) return true;
   else if (Op(6, 7, 8)) return true;
@@ -387,7 +387,7 @@ boolean crossWins() {
 class EachBox {
   int n; //number of this box
   int x, y; //position of box
-  boolean crossed, circled;
+  boolean crossed, player2d;
 // represent all the function Eachbox do for the program
   EachBox(int num) {
     rectMode(CENTER);
@@ -407,7 +407,7 @@ class EachBox {
   }
 //determine the background and draw the board
   void drawCross() {
-    crossed = true; //mark this box as a cross then switch turn to AI
+    crossed = true; //mark this box as a cross then switch turn to player2
     switchTurns();
 
     if (howmany == 9) tied = true;
@@ -416,14 +416,7 @@ class EachBox {
     line(x-radius, y+radius, x+radius, y-radius);//cross code
   }
 
-  void drawCircle() {
-    circled = true; //mark this box as a circle and draw one there
-    switchTurns();
-
-    if (howmany == 9) tied = true;
-    fill(255, 255, 220);
-    ellipse(x, y, radius, radius);//circle code
-  }
+  
 
   boolean isUserHoveringOverBox() {
     return overRect(x, y, boxSize, boxSize);

@@ -1,6 +1,6 @@
-boolean crossTurn, aiTurn, mouseReleased, tied, aiTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
+boolean crossTurn, computerTurn, mouseReleased, tied, computerTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
 int howmany; //Total count of crosses/circles
-int time, finalTime, boxSize, fps = 12; //Delays AI
+int time, finalTime, boxSize, fps = 12; //Delays computer
 EachBox [] eachbox;
 float c, radius; 
 
@@ -23,11 +23,11 @@ void setup2 () {
   //Reset the variables and check it everytime when game start
   gameIsLive = true;
   crossTurn = true;
-  aiTurnTimer = false;
-  aiTurn = false;
   tied = false;
-  time = 0;//set the time to zero
   howmany = 0;//set the total count of crosses/circles to zero
+  time = 0;//set the time to zero
+  computerTurnTimer = false;
+  computerTurn = false;
   boxSize = round(min(width, height)/4);
   radius = boxSize/2.5;
   c = 0;
@@ -47,9 +47,9 @@ void setup2 () {
 void draw() {
   checkIfGameOver();
   
-  //Delays AI's turn when it is Ai's turn
-  if (aiTurnTimer && gameIsLive) {
-    aiDelay();
+  //Delays computer's turn when it is computer's turn
+  if (computerTurnTimer && gameIsLive) {
+    computerDelay();
   }
 
   //checkFrameRate();
@@ -99,7 +99,7 @@ void rectCreator(color c, float x, float y, float w, float h) {
 
 void moveTo(int a) {
   eachbox[a].drawCircle();
-  aiTurn = false;//Put a circle in this position
+  computerTurn = false;//Put a circle in this position
 }
 
 void startCorner() {
@@ -111,17 +111,17 @@ void startCorner() {
   else a = 8;// when r =3, a= 8
   //When player start at center,randomly decides a corner to start from, and put a circle in that position.
   eachbox[a].drawCircle();
-  aiTurn = false;
+  computerTurn = false;
 }
 
-void aiFirstMove() {
+void computerFirstMove() {
   if (K1(4)) startCorner();
   else moveTo(6);
    //Take the center if player didnt make their first move on it (K1 represent the player's first move)
 }
 
-void aiMoves() {
-   //Attack movies corresponding  to the player's action (Only Run Once When AI have chance to make threaten)
+void computerMoves() {
+   //Attack movies corresponding  to the player's action (Only Run Once When computer have chance to make threaten)
   if (K2(1, 2, 0)) moveTo(0);
 
   //random
@@ -183,25 +183,25 @@ void switchTurns() {
   howmany ++; 
   if (howmany % 2 == 1 && gameIsLive) {
     crossTurn = false;
-    aiTurnTimer = true;
+    computerTurnTimer = true;
   }//because player always play first so every time when howmany % 2 == 1 it will be player's turn
 }
 
-void aiDelay() {
-  //Delay the AI's move to let player hae time to make move
+void computerDelay() {
+  //Delay the computer's move to let player hae time to make move
   finalTime = (int)frameRate;
-  if (time < finalTime) time++;//increase time by 1 which is AI's delay time
+  if (time < finalTime) time++;//increase time by 1 which is computer's delay time
   //When the time comes, play it once
   else {
-    aiTurnTimer = false;
-    aiTurn = true;
+    computerTurnTimer = false;
+    computerTurn = true;
 
-    if (howmany == 1) aiFirstMove();//when how many =1, it's player's move
-    else aiMoves();
+    if (howmany == 1) computerFirstMove();//when how many =1, it's player's move
+    else computerMoves();
 
     time = 0;//set time back to zero
     
-    aiTurn = false;
+    computerTurn = false;
     crossTurn = true;//cross turn = player turn
   }
 }
@@ -237,7 +237,7 @@ boolean Op(int a, int b, int c) {
     drawLines(a, c);
     return true;
   } else return false;
-}//xp represent player's move and op represent AI
+}//xp represent player's move and op represent computer
 
 //Check if the user miraculously wins
 boolean Xp(int a, int b, int c) {
@@ -320,7 +320,7 @@ rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
   }
 //determine the background and draw the board
   void drawCross() {
-    crossed = true; //mark this box as a cross then switch turn to AI
+    crossed = true; //mark this box as a cross then switch turn to computer
     switchTurns();
 
     if (howmany == 9) tied = true;

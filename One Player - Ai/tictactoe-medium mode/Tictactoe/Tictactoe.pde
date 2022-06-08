@@ -216,25 +216,19 @@ void gameOver(String message) {
   gameIsLive = false;// create variable message which represent the result of game 
   if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
   stroke(0, c);
-  rectCreator(color(333, 0, 222), width/2, height/2 + 50, width-100, 200);
-  textCreator(round(95*min(width, height)/800), color(11, 11, 0), message, width/2, height/2);//message should only be lose or tied if the code working
-  rect(width/3, height/2 + 100, 100, 50);
-  rect(width*2/3, height/2 + 100, 100, 50);//Create the rect part of game over menu.
-
-  textCreator(round(25*min(width, height)/800), color(555, 333, 220), "RESTART", width/3, height/2+100);
-  text("SAVE", width*2/3, height/2 + 100);//Create the text part of game over menu.
+  rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
+  textCreator(round(95*min(width, height)/800), color(255, 11, 444), message, width/2, height/2);//message should only be lose or tied if the code working
+  rect(width*3/6, height/2 + 100, 100, 50);
+  textCreator(round(25*min(width, height)/800), color(555, 333, 220), "RESTART", width*3/6, height/2+100);
 
   stroke(0);
-  if (overRect(width/3, height/2+100, 100, 50) && mouseReleased) {
+  if (overRect(width*3/6, height/2+100, 100, 50) && mouseReleased) {
     mouseReleased = false;
     //when player click restart, reset all variables and clear background
     setup();
-  } else if (overRect(width*2/3, height/2+100, 100, 50) && mouseReleased) {
-    mouseReleased = false;
-    saveFrame ();
+
   }//when player click save, auto save the  screenshot of this particular game to folder
 }
-
 void switchTurns() {
   //Player's turn
 

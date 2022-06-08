@@ -32,6 +32,7 @@ If a player has won (3 X's or O's in a row), it draws a line to show which and h
 
 If Ai win, the board will "YOU LOSE" 
 If Ai lose, the board will "YOU wIN" 
+if the game ended Tie, the board will say "TIED"
 
 
     game over 

@@ -133,8 +133,8 @@ void computerMoves() {
   else while (true) {
     int i = round(random(8));
     if (boxIsEmpty(i) && i != 1) {
-      moveTo(i);//work same with line 115. But here it could be any random number between 0-8 but 1(figure why is 1 later)
-      break;//end the execution of while
+      moveTo(i);
+      break;
     }
   }
 }
@@ -143,7 +143,6 @@ void randomAction() {
   //It randomly puts you in CORRECT positions
   while (true) {
     int i = round(random(1, 4))*2 - 1;//possibilities: 1, 3, 5, 7
-    //These are four same probability actions which connect the front code(Start at line 215) 
     if (boxIsEmpty(i)) {
       moveTo(i);
       break;
@@ -158,24 +157,8 @@ void checkHowMany () {
 
 
 
-//Create the game over menu
-void gameOver(String message) {
-  gameIsLive = false;// create variable message which represent the result of game 
-  if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
-  stroke(0, c);
-  rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
-  textCreator(round(95*min(width, height)/800), color(0), message, width/2, height/2);//message should only be lose or tied if the code working
-  rect(width*3/6, height/2 + 100, 100, 50);
-  textCreator(round(25*min(width, height)/800), color(444, 555, 150), "RESTART", width*3/6, height/2+100);
+//game over menu
 
-  stroke(0);
-  if (overRect(width*3/6, height/2+100, 100, 50) && mouseReleased) {
-    mouseReleased = false;
-    //when player click restart, reset all variables and clear background
-    setup();
-
-  }//when player click save, auto save the  screenshot of this particular game to folder
-}
 
 void switchTurns() {
   //Player's turn
@@ -341,6 +324,23 @@ rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
   boolean isUserHoveringOverBox() {
     return overRect(x, y, boxSize, boxSize);
   }
+}
+void gameOver(String message) {
+  gameIsLive = false;// create variable message which represent the result of game 
+  if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
+  stroke(0, c);
+  rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
+  textCreator(round(95*min(width, height)/800), color(0), message, width/2, height/2);//message should only be lose or tied if the code working
+  rect(width*3/6, height/2 + 100, 100, 50);
+  textCreator(round(25*min(width, height)/800), color(444, 555, 150), "RESTART", width*3/6, height/2+100);
+
+  stroke(0);
+  if (overRect(width*3/6, height/2+100, 100, 50) && mouseReleased) {
+    mouseReleased = false;
+    //when player click restart, reset all variables and clear background
+    setup();
+
+  }//when player click save, auto save the  screenshot of this particular game to folder
 }
 void checkIfGameOver() {
   if (circleWins()) {

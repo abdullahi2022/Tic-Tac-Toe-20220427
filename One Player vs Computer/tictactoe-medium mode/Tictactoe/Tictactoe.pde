@@ -1,3 +1,5 @@
+//TicTacToe medium mode
+//there is 50/50 chance of either the computer or you winningit .
 boolean crossTurn, aiTurn, mouseReleased, tied, aiTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
 int howmany; //Total count of crosses/circles
 int time, finalTime, boxSize, fps = 12; //Delays AI
@@ -12,8 +14,8 @@ void setup() {
 
   
   textAlign(CENTER, CENTER);//Sets the current alignment for drawing text to center
-  ellipseMode(RADIUS);//Set the first two parameters of ellipse() as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.
-  strokeWeight(3);
+ellipseMode(RADIUS);
+  strokeWeight(9);
 
   setup2();
 }
@@ -355,8 +357,7 @@ class EachBox {
 
   
 void drawBoard() {
-   
-//    rectCreator(color(255, 255, 220), x, y, boxSize, boxSize);
+//board   
 rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
   rect(width*2.45/5, height*1.6/5, width*1/4, height*2.5/10);//game board 2
   rect(width*3.7/5, height*1.6/5, width*1/4, height*2.5/10);//game board 3

@@ -1,6 +1,8 @@
+//TicTacToe Easy mode
+//there is high chance of the Human winning.
 boolean crossTurn, computerTurn, mouseReleased, tied, computerTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
-int howmany; //Total count of crosses/circles
-int time, finalTime, boxSize, fps = 12; //Delays computer
+int howmany, time, finalTime, boxSize, fps = 12;
+; 
 EachBox [] eachbox;
 float c, radius; 
 
@@ -8,19 +10,18 @@ void setup() {
   size(700, 700);
   fps = 30;
   frameRate(fps);//Specifies the number of frames to be displayed every second
-                  // I will figure out why it is 30 fps later.
+  // I will figure out why it is 30 fps later.
 
-  
+
   textAlign(CENTER, CENTER);//Sets the current alignment for drawing text to center
   ellipseMode(RADIUS);//Set the first two parameters of ellipse() as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.
-  strokeWeight(3);
+  strokeWeight(8.4);
 
   setup2();
 }
 
 void setup2 () {
-  stroke(0);//color of stroke set to black
-  //Reset the variables and check it everytime when game start
+  stroke(1, 444, 111);//color of stroke set to black
   gameIsLive = true;
   crossTurn = true;
   tied = false;
@@ -46,7 +47,7 @@ void setup2 () {
 //Separate input/setup from what needs to be drawn constantly
 void draw() {
   checkIfGameOver();
-  
+
   //Delays computer's turn when it is computer's turn
   if (computerTurnTimer && gameIsLive) {
     computerDelay();
@@ -65,7 +66,7 @@ void checkFrameRate() {
 
 void mousePressed() {
 
-  
+
   mouseReleased = true;
 
   for (int i = 0; i < 9; i ++) {
@@ -82,8 +83,8 @@ void mouseReleased() {
 
 void textAtTop() {
   textCreator(40, color(0), "Tic-Tac-Toe", width/2, 40);
-  textCreator(20, color(255, 0, 0), "Easy Mode", width/2, 75);
-  textCreator(25, color(0), "By Abdullahi", width/2, 100);
+  textCreator(20, color(255, 0, 0), "Human vs Ai", width/2, 75);
+  textCreator(25, color(0), "Easy Mode", width/2, 100);
 }//Text Part
 
 void textCreator(int ts, color c, String s, float x, float y) {
@@ -117,15 +118,13 @@ void startCorner() {
 void computerFirstMove() {
   if (K1(4)) startCorner();
   else moveTo(6);
-   //Take the center if player didnt make their first move on it (K1 represent the player's first move)
 }
 
 void computerMoves() {
-   //Attack movies corresponding  to the player's action (Only Run Once When computer have chance to make threaten)
+
   if (K2(1, 2, 0)) moveTo(0);
 
-  //random
-  //Set 4 when the player take their first two step at corner take random action
+
   else if (K1(2) && K1(6)) randomAction(); //2, 6
   else if (K1(0) && K1(8)) randomAction(); //0, 8
 
@@ -183,7 +182,7 @@ void computerDelay() {
     else computerMoves();
 
     time = 0;//set time back to zero
-    
+
     computerTurn = false;
     crossTurn = true;//cross turn = player turn
   }
@@ -225,7 +224,8 @@ boolean Op(int a, int b, int c) {
 //Check if the user miraculously wins
 boolean Xp(int a, int b, int c) {
   if (K1(a) && K1(b) && K1(c)) {
-    drawLines(a, c); //Draw a line to show the winning positions
+    drawLines(a, c);
+    ;//Draw a line to show the winning positions
     return true;
   } else return false;
 }
@@ -269,7 +269,7 @@ class EachBox {
   int n; //number of this box
   int x, y; //position of box
   boolean crossed, circled;
-// represent all the function Eachbox do for the program
+  // represent all the function Eachbox do for the program
   EachBox(int num) {
     rectMode(CENTER);
     n = num;
@@ -284,24 +284,23 @@ class EachBox {
   }
 
   void drawBoard() {
-   
-//    rectCreator(color(255, 255, 220), x, y, boxSize, boxSize);
-rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
-  rect(width*2.45/5, height*1.6/5, width*1/4, height*2.5/10);//game board 2
-  rect(width*3.7/5, height*1.6/5, width*1/4, height*2.5/10);//game board 3
-  
-  //column 2
-  rect(width*1.25/5, height*2.87/5, width*1/4, height*2.5/10);//game board 4
-  rect(width*2.45/5, height*2.87/5, width*1/4, height*2.5/10);//game board 5
-  rect(width*3.7/5, height*2.87/5, width*1/4, height*2.5/10);//game board 6
-  
-  //column 3
+
+    //board
+    rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
+    rect(width*2.45/5, height*1.6/5, width*1/4, height*2.5/10);//game board 2
+    rect(width*3.7/5, height*1.6/5, width*1/4, height*2.5/10);//game board 3
+
+    //column 2
+    rect(width*1.25/5, height*2.87/5, width*1/4, height*2.5/10);//game board 4
+    rect(width*2.45/5, height*2.87/5, width*1/4, height*2.5/10);//game board 5
+    rect(width*3.7/5, height*2.87/5, width*1/4, height*2.5/10);//game board 6
+
+    //column 3
     rect(width*1.25/5, height*4.1/5, width*1/4, height*2.5/10);//game board 7
     rect(width*2.45/5, height*4.1/5, width*1/4, height*2.5/10);//game board 8
     rect(width*3.7/5, height*4.1/5, width*1/4, height*2.5/10);//game board 9
-
   }
-//determine the background and draw the board
+  //determine the background and draw the board
   void drawCross() {
     crossed = true; //mark this box as a cross then switch turn to computer
     switchTurns();
@@ -328,7 +327,7 @@ rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
 void gameOver(String message) {
   gameIsLive = false;// create variable message which represent the result of game 
   if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
-  stroke(0, c);
+  stroke(0, c);  
   rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
   textCreator(round(95*min(width, height)/800), color(0), message, width/2, height/2);//message should only be lose or tied if the code working
   rect(width*3/6, height/2 + 100, 100, 50);
@@ -339,14 +338,13 @@ void gameOver(String message) {
     mouseReleased = false;
     //when player click restart, reset all variables and clear background
     setup();
-
   }//when player click save, auto save the  screenshot of this particular game to folder
 }
 void checkIfGameOver() {
   if (circleWins()) {
     gameOver("YOU LOSE");
   } else if (crossWins()) {
-    gameOver("YOU WIN");
+    gameOver("YOU WIN :)");
   } else if (tied) {
     gameOver("TIED");
   } //connect the String message (line 259)

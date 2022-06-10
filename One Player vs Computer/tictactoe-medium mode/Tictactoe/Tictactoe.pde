@@ -82,7 +82,7 @@ void mouseReleased() {
 
 void textAtTop() {
   textCreator(40, color(0), "Tic-Tac-Toe", width/2, 40);
-  textCreator(20, color(255, 0, 0), "Easy Mode", width/2, 75);
+  textCreator(20, color(255, 0, 0), "Medium Mode", width/2, 75);
   textCreator(25, color(0), "By Abdullahi", width/2, 100);
 }//Text Part
 

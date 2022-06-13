@@ -1,9 +1,7 @@
 //TicTacToe medium mode
-//there is 50/50 chance of either the computer or you winningit .
-boolean crossTurn, aiTurn, mouseReleased, tied, aiTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
-int howmany; //Total count of crosses/circles
-int time, finalTime, boxSize, fps = 12; //Delays AI
-EachBox [] eachbox;
+//there is 50/50 chance of either the computer or you winning it .
+boolean crossTurn, ComputerTurn, mouseReleased, tied, ComputerTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
+int howmany, finalTime, boxSize, time, fps = 12 ;
 float c, radius; 
 
 void setup() {
@@ -19,14 +17,14 @@ ellipseMode(RADIUS);
 
   setup2();
 }
-
+EachBox [] eachbox;
 void setup2 () {
   stroke(0);//color of stroke set to black
   //Reset the variables and check it everytime when game start
   gameIsLive = true;
   crossTurn = true;
-  aiTurnTimer = false;
-  aiTurn = false;
+  ComputerTurnTimer = false;
+  ComputerTurn = false;
   tied = false;
   time = 0;//set the time to zero
   howmany = 0;//set the total count of crosses/circles to zero
@@ -49,9 +47,9 @@ void setup2 () {
 void draw() {
   checkIfGameOver();
   
-  //Delays AI's turn when it is Ai's turn
-  if (aiTurnTimer && gameIsLive) {
-    aiDelay();
+  //Delays Computer's turn when it is Human's turn
+  if (ComputerTurnTimer && gameIsLive) {
+    ComputerDelay();
   }
 
   //checkFrameRate();
@@ -61,7 +59,7 @@ void draw() {
 void checkFrameRate() {
   noStroke();
   rectCreator(color(150, 225, 220), 100, 50, 80, 30);
-  stroke(0);
+  stroke(222, 333);
   textCreator(15, color(0), "Lag: " + round(100-100*(frameRate)/fps) + " %", 100, 50);
 }//check frame rate lag to make sure it work
 
@@ -83,9 +81,9 @@ void mouseReleased() {
 }
 
 void textAtTop() {
-  textCreator(40, color(0), "Tic-Tac-Toe", width/2, 40);
-  textCreator(20, color(255, 0, 0), "Medium Mode", width/2, 75);
-  textCreator(25, color(0), "By Abdullahi", width/2, 100);
+  textCreator(40, color(0), "Tic Tac Toe", width/2, 40);
+    textCreator(25, color(0), "Human vs Ai", width/2, 100);
+  textCreator(29, color(255, 0, 0), "Medium Mode", width/2, 75);
 }//Text Part
 
 void textCreator(int ts, color c, String s, float x, float y) {
@@ -101,7 +99,7 @@ void rectCreator(color c, float x, float y, float w, float h) {
 
 void moveTo(int a) {
   eachbox[a].drawCircle();
-  aiTurn = false;//Put a circle in this position
+  ComputerTurn = false;//Put a circle in this position
 }
 
 void startCorner() {
@@ -113,17 +111,17 @@ void startCorner() {
   else a = 8;// when r =3, a= 8
   //When player start at center,randomly decides a corner to start from, and put a circle in that position.
   eachbox[a].drawCircle();
-  aiTurn = false;
+  ComputerTurn = false;
 }
 
-void aiFirstMove() {
+void ComputerFirstMove() {
   if (K1(4)) startCorner();
   else moveTo(6);
    //Take the center if player didnt make their first move on it (K1 represent the player's first move)
 }
 
-void aiMoves() {
-   //Attack movies corresponding  to the player's action (Only Run Once When AI have chance to make threaten)
+void ComputerMoves() {
+   //Attack movies corresponding  to the player's action (Only Run Once When Computer have chance to make threaten)
   if (K2(1, 2, 0)) moveTo(0);
   else if (K2(0, 2, 1)) moveTo(1);
   else if (K2(4, 5, 3)) moveTo(3);
@@ -131,44 +129,42 @@ void aiMoves() {
   //done with horizontal
 
   else if (K2(5, 8, 2)) moveTo(2);
-
   else if (K2(0, 6, 3)) moveTo(3);
   else if (K2(1, 7, 4)) moveTo(4);
   else if (K2(2, 8, 5)) moveTo(5);
-
   else if (K2(0, 3, 6)) moveTo(6);
-  else if (K2(1, 4, 7)) moveTo(7);//not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K2(1, 4, 7)) moveTo(7);
   else if (K2(2, 5, 8)) moveTo(8);
   //done with vertical
-  else if (K2(6, 4, 2)) moveTo(2); //not necessary cause player wont got chance to go center if they didnt make their first move on it
-  else if (K2(0, 8, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
-  else if (K2(0, 4, 8)) moveTo(8); //not necessary cause player wont got chance to go center if they didnt make their first move on it
+  else if (K2(6, 4, 2)) moveTo(2); 
+  else if (K2(0, 8, 4)) moveTo(4); 
+  else if (K2(0, 4, 8)) moveTo(8); 
 
   //Attack movies corresponding  to the player's action (Only run once when player already made threaten)
   else if (K3(0, 2, 1)) moveTo(1);
   else if (K3(4, 5, 3)) moveTo(3);
-  else if (K3(3, 5, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(3, 5, 4)) moveTo(4); //not necessary cause Computer will take it first move on center if it's possibe (Player didn't take it)
   else if (K3(6, 7, 8)) moveTo(8);
   //done with horizontal
   else if (K3(3, 6, 0)) moveTo(0);
   else if (K3(5, 8, 2)) moveTo(2);
 
   else if (K3(0, 6, 3)) moveTo(3);
-  else if (K3(1, 7, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(1, 7, 4)) moveTo(4); //not necessary cause Computer will take it first move on center if it's possibe (Player didn't take it)
   else if (K3(0, 3, 6)) moveTo(6);
   else if (K3(2, 5, 8)) moveTo(8);
   //done with vertical
   else if (K3(4, 6, 2)) moveTo(2);
-  else if (K3(0, 8, 4)) moveTo(4); //not necessary cause AI will take it first move on center if it's possibe (Player didn't take it)
+  else if (K3(0, 8, 4)) moveTo(4); //not necessary cause Computer will take it first move on center if it's possibe (Player didn't take it)
   else if (K3(2, 4, 6)) moveTo(6); //not necessary cause player wont got chance to go center if they didnt make their first move on it
   else if (K3(0, 4, 8)) moveTo(8); //not necessary cause player wont got chance to go center if they didnt make their first move on it
 
   //defending strategy (thinking 2 steps ahead to avoid the double threaten)
-  //Set 1
+  //Set A
   else if (K3(1, 3, 0)) moveTo(0);
   else if (K3(5, 7, 8)) moveTo(8);
 
-  //Set 2
+  //Set B
   else if (K3(3, 8, 7)) moveTo(7); //3,8--> 7
   else if (K3(5, 6, 7)) moveTo(7);//6,5--> 7
  
@@ -176,11 +172,11 @@ void aiMoves() {
   else if (K3(1, 6, 3)) moveTo(3);//1,8--> 3
   else if (K3(2, 3, 1)) moveTo(1);//2,3-->1
 
-  //Set 3
+  //Set C
   
   else if (K3(4, 8, 2)) moveTo(2);//0,5-->1
  
-  //random
+  //random moves
   //Set 4 when the player take their first two step at corner take random action
   else if (K1(2) && K1(6)) randomAction(); //2, 6
   else if (K1(0) && K1(8)) randomAction(); //0, 8
@@ -195,11 +191,10 @@ void aiMoves() {
   }
 }
 
+//Random moves but it puts you in a correct positions
 void randomAction() {
-  //It randomly puts you in CORRECT positions
   while (true) {
     int i = round(random(1, 4))*2 - 1;//possibilities: 1, 3, 5, 7
-    //These are four same probability actions which connect the front code(Start at line 215) 
     if (boxIsEmpty(i)) {
       moveTo(i);
       break;
@@ -207,55 +202,38 @@ void randomAction() {
   }
 }
 
+//If all the boxes are filled up, we have tied. Screen would show up saying "TIED". 
 void checkHowMany () {
-  //If all the boxes are filled up, we have tied
   if (howmany == 9) tied = true;
 }
 
 
-//Create the game over menu
-void gameOver(String message) {
-  gameIsLive = false;// create variable message which represent the result of game 
-  if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
-  stroke(0, c);
-  rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
-  textCreator(round(95*min(width, height)/800), color(255, 11, 444), message, width/2, height/2);//message should only be lose or tied if the code working
-  rect(width*3/6, height/2 + 100, 100, 50);
-  textCreator(round(25*min(width, height)/800), color(555, 333, 220), "RESTART", width*3/6, height/2+100);
-
-  stroke(0);
-  if (overRect(width*3/6, height/2+100, 100, 50) && mouseReleased) {
-    mouseReleased = false;
-    //when player click restart, reset all variables and clear background
-    setup();
-
-  }//when player click save, auto save the  screenshot of this particular game to folder
-}
 void switchTurns() {
   //Player's turn
 
   howmany ++; 
   if (howmany % 2 == 1 && gameIsLive) {
     crossTurn = false;
-    aiTurnTimer = true;
+    ComputerTurnTimer = true;
   }//because player always play first so every time when howmany % 2 == 1 it will be player's turn
 }
 
-void aiDelay() {
-  //Delay the AI's move to let player hae time to make move
+//Delaying the Computer's move to let the player make a move. 
+void ComputerDelay() {
+  //Delay the Computer's move to let player hae time to make move
   finalTime = (int)frameRate;
-  if (time < finalTime) time++;//increase time by 1 which is AI's delay time
-  //When the time comes, play it once
+  if (time < finalTime) time++;//increase time by 1 which is Computer's delay time
+  //When the time comes, play it once and then it switches to players turn
   else {
-    aiTurnTimer = false;
-    aiTurn = true;
+    ComputerTurnTimer = false;
+    ComputerTurn = true;
 
-    if (howmany == 1) aiFirstMove();//when how many =1, it's player's move
-    else aiMoves();
+    if (howmany == 1) ComputerFirstMove();//when how many =1, it's player's move
+    else ComputerMoves();
 
     time = 0;//set time back to zero
     
-    aiTurn = false;
+    ComputerTurn = false;
     crossTurn = true;//cross turn = player turn
   }
 }
@@ -291,7 +269,7 @@ boolean Op(int a, int b, int c) {
     drawLines(a, c);
     return true;
   } else return false;
-}//xp represent player's move and op represent AI
+}//xp represent player's move and op represent Computer
 
 //Check if the user miraculously wins
 boolean Xp(int a, int b, int c) {
@@ -312,6 +290,7 @@ void drawLines(int a, int c) {
   line(eachbox[a].x, eachbox[a].y, eachbox[c].x, eachbox[c].y);
 }//the function for draw lines
 
+//postive pattern of win
 boolean circleWins() {
   if (Op(0, 1, 2)) return true;
   else if (Op(3, 4, 5)) return true;
@@ -335,12 +314,10 @@ boolean crossWins() {
   else if (Xp(2, 4, 6)) return true;
   else return false;
 }
-//Above codes are all the postive pattern of win
 class EachBox {
   int n; //number of this box
   int x, y; //position of box
   boolean crossed, circled;
-// represent all the function Eachbox do for the program
   EachBox(int num) {
     rectMode(CENTER);
     n = num;
@@ -355,9 +332,8 @@ class EachBox {
   }
 
 
-  
+//Dawing Game board   
 void drawBoard() {
-//board   
 rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
   rect(width*2.45/5, height*1.6/5, width*1/4, height*2.5/10);//game board 2
   rect(width*3.7/5, height*1.6/5, width*1/4, height*2.5/10);//game board 3
@@ -372,9 +348,9 @@ rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
     rect(width*2.45/5, height*4.1/5, width*1/4, height*2.5/10);//game board 8
     rect(width*3.7/5, height*4.1/5, width*1/4, height*2.5/10);//game board 9
 }
-//determine the background and draw the board
+//Drawing X and O inside the circle
   void drawCross() {
-    crossed = true; //mark this box as a cross then switch turn to AI
+    crossed = true; //mark this box as a cross then switch turn to Computer
     switchTurns();
 
     if (howmany == 9) tied = true;
@@ -396,12 +372,31 @@ rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
     return overRect(x, y, boxSize, boxSize);
   }
 }
+//check if the game is over or if someone won
 void checkIfGameOver() {
   if (circleWins()) {
     gameOver("YOU LOSE");
   } else if (crossWins()) {
-    gameOver("YOU WIN");
+    gameOver("YOU WIN:)");
   } else if (tied) {
     gameOver("TIED");
-  } //connect the String message (line 259)
+  } 
+}
+//Creates the game over menu and variable message which represent the result of game
+void gameOver(String message) {
+  gameIsLive = false;// create variable message which represent the result of game 
+  if (c < 200) c += 120/(fps+1);//float c = Game over menu's color and delay increment (add 120/(30+1) everytime until reach 200)
+  stroke(0, c);
+  rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
+  textCreator(round(95*min(width, height)/800), color(255, 11, 222), message, width/2, height/2);
+  rect(width*3/6, height/2 + 100, 100, 50);
+  textCreator(round(25*min(width, height)/800), color(555, 333, 220), "RESTART", width*3/6, height/2+100); //when player click restart, reset all variables and clear background
+
+
+  stroke(0);
+  if (overRect(width*3/6, height/2+100, 100, 50) && mouseReleased) {
+    mouseReleased = false;
+    setup();
+
+  }
 }

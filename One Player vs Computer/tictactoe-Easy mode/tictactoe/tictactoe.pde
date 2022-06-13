@@ -1,9 +1,7 @@
 //TicTacToe Easy mode
 //there is high chance of the Human winning.
-boolean crossTurn, computerTurn, mouseReleased, tied, computerTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
-int howmany, time, finalTime, boxSize, fps = 12;
-; 
-EachBox [] eachbox;
+boolean crossTurn, computerTurn, mouseReleased, tied, computerTurnTimer, gameIsLive ;
+int howmany, time, finalTime, boxSize, fps = 12; 
 float c, radius; 
 
 void setup() {
@@ -15,10 +13,11 @@ void setup() {
 
   textAlign(CENTER, CENTER);//Sets the current alignment for drawing text to center
   ellipseMode(RADIUS);//Set the first two parameters of ellipse() as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.
-  strokeWeight(8.4);
+  strokeWeight(8.66);
 
   setup2();
 }
+EachBox [] eachbox;
 
 void setup2 () {
   stroke(1, 444, 111);//color of stroke set to black
@@ -82,9 +81,9 @@ void mouseReleased() {
 }
 
 void textAtTop() {
-  textCreator(40, color(0), "Tic-Tac-Toe", width/2, 40);
-  textCreator(20, color(255, 0, 0), "Human vs Ai", width/2, 75);
-  textCreator(25, color(0), "Easy Mode", width/2, 100);
+  textCreator(40, color(0), "Tic Tac Toe", width/2, 40);
+  textCreator(29, color(111, 222, 333), "Human vs Ai", width/2, 75);
+  textCreator(26, color(0), "Easy Mode", width/2, 100);
 }//Text Part
 
 void textCreator(int ts, color c, String s, float x, float y) {

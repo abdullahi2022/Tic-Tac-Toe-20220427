@@ -1,5 +1,4 @@
-//TicTacToe Easy mode
-//there is high chance of the Human winning.
+//TicTacToe Easy mode. there is a higher chance of the Human winning.
 boolean crossTurn, computerTurn, mouseReleased, tied, computerTurnTimer, gameIsLive ;
 int howmany, time, finalTime, boxSize, fps = 12; 
 float c, radius; 
@@ -7,9 +6,7 @@ float c, radius;
 void setup() {
   size(700, 700);
   fps = 30;
-  frameRate(fps);//Specifies the number of frames to be displayed every second
-  // I will figure out why it is 30 fps later.
-
+  frameRate(fps);
 
   textAlign(CENTER, CENTER);//Sets the current alignment for drawing text to center
   ellipseMode(RADIUS);//Set the first two parameters of ellipse() as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.

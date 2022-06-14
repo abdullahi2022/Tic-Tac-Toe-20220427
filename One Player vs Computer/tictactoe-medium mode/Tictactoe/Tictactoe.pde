@@ -8,7 +8,6 @@ void setup() {
   size(700, 700);
   fps = 30;
   frameRate(fps);//Specifies the number of frames to be displayed every second
-                  // I will figure out why it is 30 fps later.
 
   
   textAlign(CENTER, CENTER);//Sets the current alignment for drawing text to center
@@ -42,8 +41,7 @@ void setup2 () {
   }//index refers the number of boxes
   textAtTop();//a procedure lead to line 93
 }
-
-//Separate input/setup from what needs to be drawn constantly
+//dawing the game board and stuff
 void draw() {
   checkIfGameOver();
   
@@ -80,6 +78,7 @@ void mouseReleased() {
   mouseReleased = false;//when mouse released, confirm the movenment player made
 }
 
+//text part
 void textAtTop() {
   textCreator(40, color(0), "Tic Tac Toe", width/2, 40);
     textCreator(25, color(0), "Human vs Ai", width/2, 100);
@@ -97,6 +96,7 @@ void rectCreator(color c, float x, float y, float w, float h) {
   rect(x, y, w, h);
 }//They use default values to textCreator/textCreator
 
+//computer moves
 void moveTo(int a) {
   eachbox[a].drawCircle();
   ComputerTurn = false;//Put a circle in this position
@@ -390,7 +390,9 @@ void gameOver(String message) {
   rectCreator(color(444, 555, 150), width/2, height/2 + 50, width-100, 200);
   textCreator(round(95*min(width, height)/800), color(255, 11, 222), message, width/2, height/2);
   rect(width*3/6, height/2 + 100, 100, 50);
-  textCreator(round(25*min(width, height)/800), color(555, 333, 220), "RESTART", width*3/6, height/2+100); //when player click restart, reset all variables and clear background
+  textCreator(round(25*min(width, height)/800), color(555, 333, 220), "RESTART", width*3/6, height/2+100);
+  //when player click restart, reset all variables and clear background
+//this "restart" button allows to you play the game again when you press it.
 
 
   stroke(0);

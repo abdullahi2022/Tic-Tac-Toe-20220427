@@ -332,7 +332,7 @@ class EachBox {
   }
 
 
-//Dawing Game board   
+//Dawing Game board (rectangles)
 void drawBoard() {
 rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
   rect(width*2.45/5, height*1.6/5, width*1/4, height*2.5/10);//game board 2

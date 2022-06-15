@@ -31,7 +31,7 @@ void setup2 () {
   radius = boxSize/2.5;
   c = 0;
 
-  //Clean up background
+  //Clean up background of the board
   background(555, 333, 220);
   eachbox = new EachBox[9];
 

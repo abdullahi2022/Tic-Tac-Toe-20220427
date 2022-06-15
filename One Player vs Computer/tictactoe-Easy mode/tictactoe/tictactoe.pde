@@ -71,12 +71,12 @@ void mousePressed() {
   }
 }
 
-//movement
+//movements
 void mouseReleased() {
   mouseReleased = false;//when mouse released, confirm the movenment player made
 }
 
-//title of the game (Introdution)
+//An introduction to the game.
 void textAtTop() {
   textCreator(40, color(0), "Tic Tac Toe", width/2, 40);
   textCreator(29, color(111, 222, 333), "Human vs Ai", width/2, 75);
@@ -279,6 +279,8 @@ class EachBox {
   }
 
 //game boards
+
+//determines the background and draw the board of the game
   void drawBoard() {
 
     //board
@@ -295,7 +297,7 @@ class EachBox {
     rect(width*1.25/5, height*4.1/5, width*1/4, height*2.5/10);//game board 7
     rect(width*2.45/5, height*4.1/5, width*1/4, height*2.5/10);//game board 8
     rect(width*3.7/5, height*4.1/5, width*1/4, height*2.5/10);//game board 9
-  }//determine the background and draw the board
+  }
   
   //drawing X when the Human touches one of the rectangles
   void drawCross() {

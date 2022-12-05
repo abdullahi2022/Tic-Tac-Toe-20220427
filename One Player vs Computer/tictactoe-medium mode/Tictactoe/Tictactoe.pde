@@ -3,7 +3,17 @@
 boolean crossTurn, ComputerTurn, mouseReleased, tied, ComputerTurnTimer, gameIsLive ;//use to control the program's flow goes true or false
 int howmany, finalTime, boxSize, time, fps = 12 ;
 float c, radius; 
+PImage img;
 
+void setup() {
+  size(400,400);
+  img = loadImage("ginko.jpg");
+}
+
+void draw() {
+  image(img, 0, 0);
+  image(img, 0, 0, width/2, height/2);
+}
 void setup() {
   size(700, 700);
   fps = 30;

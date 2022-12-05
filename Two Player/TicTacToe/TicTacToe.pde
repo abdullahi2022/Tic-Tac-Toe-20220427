@@ -1,17 +1,55 @@
 EachBox [] eachbox;//Every each box represent one data in the list from 0-8
 boolean crossTurn, circleTurn, mouseReleased, tied;//use to control the program's flow goes true or false
+int appWidth, appHeight, fontSize;
+String title = "ABDULLAHI!", footer="";
+float titleX, titleY, titleWidth, titleHeight;
+float footerX, footerY, footerWidth, footerHeight;
+PFont titleFont;
+color purple=#2C08FF, resetDefaultInk=#FFFFFF; //Not night mode friendly
 int howmany; //Total count of crosses/circles
 int time, finalTime; //Delays AI
 int boxSize, fps = 12;//12 frames per second
-
 float c; //Game over menu's color and delay increment
 boolean circleTurnTimer; //check if timer for Ai's delay is on
 
 boolean gameIsLive; //checks if game is being played
 
 float radius;
+
+float backgroundImageX, backgroundImageY, backgroundImageWidth, backgroundImageHeight;
+float topX, topY, topWidth, topHeight;
+float bottomX, bottomY, bottomWidth, bottomHeight;
+float picWidthAdjusted1=0.0, picHeightAdjusted1=0.0;
+
+PImage pic1, pic2, pic3;
+Boolean nightMode=false;
+int tintDayMode=255, tintDayModeOpacity=50, tintRed=64, tintGreen=64, tintBlue=40, tintNightModeOpacity=85;
+
+
 void setup() {
 
+ //size(500, 600); //Portrait
+  appWidth = width;
+  appHeight = height;
+
+  //Population
+  titleX = footerX = appWidth * 2/4;
+  titleY = appHeight * 1/8;
+  footerY = appHeight * 8/10;
+  titleWidth = footerWidth = appWidth * 1/2;
+  titleHeight = footerHeight = appHeight * 1/10;
+  //
+  //Text Setup, single executed code
+  //Font from OS (Operating System)
+  String[] fontList = PFont.list(); //To list all fonts available on OS
+  printArray(fontList); //For listing all possible fonts
+  titleFont = createFont("Verdana Bold", 55); //Verify the font exists in Processing.JAVA
+  // Tools / Create Font / Find Font / Do not press "OK", known bug
+  //
+  //Layout our text space and typographical features
+  rect(titleX, titleY, titleWidth, titleHeight);
+  rect(footerX, footerY, footerWidth, footerHeight);
+  //
 
   size(700, 700);
   rectMode(CENTER);
@@ -24,53 +62,16 @@ void setup() {
 
   setup2();
   //background(280, 333, 220);
-  background(555, 333, 220);
+  background(222, 333, 777);
 
 
-   //rect(width/3, height/2 + 100, 100, 50);
-  //textCreator(round(25*min(width, height)/800), color(0), "Player X", width/3, height/2+100);
-    //text("Player O", width*2/3, height/2, + 100);//Create the text part of game over menu.
-    
-  //rect(width*1/10, height*0.3/5, width*1.5/4, height*2.5/10);//rect for player X
-   // textCreator(round(25*min(width, height)/700), color(0), "Player X Score:", width*0.6/4, height*0.3/5);//score for player X
-
-  //rect(width*3.4/4, height*0.3/5, width*1.3/4, height*2.5/10);//rect for player O
-  //  textCreator(round(25*min(width, height)/700), color(255, 0, 0), "Player O Score:", width*3.3/4, height*0.3/5);//score for player O
-
-//text t the top
-//  rect(width*1.1/5, height*1/10, width*2/4, height*2.5/10);//rect for player X
-  //rect(width*3.9/5, height*1/10, width*2/4, height*2.5/10);//rect for player X
-
-//column 1
-  rect(width*1.25/5, height*1.6/5, width*1/4, height*2.5/10);//game board 1
-  rect(width*2.45/5, height*1.6/5, width*1/4, height*2.5/10);//game board 2
-  rect(width*3.7/5, height*1.6/5, width*1/4, height*2.5/10);//game board 3
-  
-  //column 2
-  rect(width*1.25/5, height*2.87/5, width*1/4, height*2.5/10);//game board 4
-  rect(width*2.45/5, height*2.87/5, width*1/4, height*2.5/10);//game board 5
-  rect(width*3.7/5, height*2.87/5, width*1/4, height*2.5/10);//game board 6
-  
-  //column 3
-    rect(width*1.25/5, height*4.1/5, width*1/4, height*2.5/10);//game board 7
-    rect(width*2.45/5, height*4.1/5, width*1/4, height*2.5/10);//game board 8
-    rect(width*3.7/5, height*4.1/5, width*1/4, height*2.5/10);//game board 9
-
- //Scoreboard
-  //rect(width*1.6/10, height*1/24, width*5/15, height*4/24); //Player 1
-  // textCreator(round(25*min(width, height)/700), color(255, 150,0), "Player X Score:", width*1.25/10, height*1/24);//score for player O
- // rect(width*1.8/5, height*1/24, width*5/48, height*4/24); //Player 1 Score
- 
-   // rect(width*8.4/10, height*1/24, width*5/15, height*4/24); //Player O
-  // textCreator(round(25*min(width, height)/700), color(0), "Player O Score:", width*8.131/10, height*1/24);//score for player O
-
-  
+   
   
   //intro to the game
-          textCreator(round(25*min(width, height)/700), color(159, 0, 159), "Tic-Tac-Toe", width*3.4/7, height*1/24);//score for player O
-                   textCreator(round(25*min(width, height)/700), color(255, 0, 0), "2v2", width*3.4/7, height*2/24);//score for player O
+          textCreator(round(25*min(width, height)/700), color(159, 0, 159), "MEASLES / Text Dynamics", width*3.4/7, height*1/24);//score for player O
+                   textCreator(round(25*min(width, height)/700), color(255, 0, 0), "Imaginary rectangle - click the middle part ", width*3.4/7, height*23/24);//score for player O
 
-          textCreator(round(25*min(width, height)/700), color(150, 30, 450), "by Abdullahi", width*3.4/7, height*3/24);//score for player O
+          textCreator(round(25*min(width, height)/700), color(150, 30, 450), "", width*3.4/7, height*3/24);//score for player O
 
 
  // rect(width*41/48, height*1/24, width*5.3/48, height*4/24); //Player 2 Score
@@ -101,17 +102,17 @@ void setup2 () {
 
 //Separate input/setup from what needs to be drawn constantly
 void draw() {
-  //draw doesn't loop after tying..
-
-  //Not only checks gameover but also plays fade-in animation
-  //checkIfGameOver();
-  
-  
-  //checkFrameRate();
-  
-  
-  //O diagra on two left corner
-//ellipse(172,225,77,77);
+//Text Draw: Repeatedly Executed Code
+  fill(purple); //Ink
+  textAlign(CENTER, CENTER); //Align X&Y, see Processing.org / Reference
+  //Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
+  fontSize = 50;
+  textFont(titleFont, fontSize);
+  text( title, titleX, titleY, titleWidth, titleHeight );
+  textAlign(CENTER, BOTTOM); //Align X&Y, see Processing.org / Reference
+  //Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
+  text( footer, footerX, footerY, footerWidth, footerHeight );
+  fill(resetDefaultInk);
 }
 
 
@@ -178,19 +179,6 @@ void checkHowMany () {
   if (howmany == 9) tied = true;
 }
 
-//void checkIfGameOver() {
-  //if (circleWins()) {
-  //  gameOver("Player X WINS");
- // } else if (crossWins()) {
- //   gameOver("Player O WIN");
- // } else if (tied) {
- //   gameOver("TIED");
-//  } //connect the String message (line 259)
-//}
-
-//Create the game over menu
-
-
 void switchTurns() {
   //Player's turn
 
@@ -256,25 +244,13 @@ void drawLines(int a, int c) {
 
 boolean circleWins() {
   if (Op(0, 1, 2)) return true;
-  else if (Op(3, 4, 5)) return true;
-  else if (Op(6, 7, 8)) return true;
-  else if (Op(0, 3, 6)) return true;
-  else if (Op(1, 4, 7)) return true;
-  else if (Op(2, 5, 8)) return true;
-  else if (Op(0, 4, 8)) return true;
-  else if (Op(2, 4, 6)) return true;
+
   else return false;
 }
 
 boolean crossWins() {
   if (Xp(0, 1, 2)) return true;
-  else if (Xp(3, 4, 5)) return true;
-  else if (Xp(6, 7, 8)) return true;
-  else if (Xp(0, 3, 6)) return true;
-  else if (Xp(1, 4, 7)) return true;
-  else if (Xp(2, 5, 8)) return true;
-  else if (Xp(0, 4, 8)) return true;
-  else if (Xp(2, 4, 6)) return true;
+
   else return false;
 }
 //Above codes are all the postive pattern of win
@@ -385,3 +361,7 @@ void circleMoves() {
       moveTo(i);//work same with line 115. But here it could be any random number between 0-8 but 1(figure why is 1 later)
     }
   }
+  
+
+
+//
